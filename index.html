@@ -27,19 +27,40 @@
     </div>
 
 </div>
-    <h2>Add Grocery Item</h2>
+    <h2>Add Item</h2>
+
+<label>Category:</label>
+
+<select id="category">
+    <option value="">Select Category</option>
+    <option value="Grocery">Grocery</option>
+    <option value="Vegetables">Vegetables</option>
+    <option value="Fruits">Fruits</option>
+    <option value="Snacks">Snacks</option>
+</select>
 
 <label>Item Name:</label>
 <input type="text" id="itemName" placeholder="Enter item name">
-<label>Category:</label>
-<input type="text" id="category" placeholder="Enter category">
+
 <label>Quantity:</label>
 <input type="number" id="quantity" placeholder="Enter quantity">
+
 <label>Price:</label>
 <input type="number" id="price" placeholder="Enter price">
+
 <button id="addItem">Add Item</button>
+
 <h2>Shopping List</h2>
 <input type="text" id="searchInput" placeholder="Search item">
+<label>Filter by Category:</label>
+
+<select id="categoryFilter">
+    <option value="all">All Categories</option>
+    <option value="Grocery">Grocery</option>
+    <option value="Vegetables">Vegetables</option>
+    <option value="Fruits">Fruits</option>
+    <option value="Snacks">Snacks</option>
+</select>
 <h2>Total Amount: ₹<span id="totalAmount">0</span></h2>
 
 <div id="shoppingList"></div>
