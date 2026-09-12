@@ -7,6 +7,9 @@ const shoppingList = document.getElementById("shoppingList");
 const clearAllButton = document.getElementById("clearAll");
 const searchInput = document.getElementById("searchInput");
 const totalAmount = document.getElementById("totalAmount");
+const totalItems = document.getElementById("totalItems");
+const totalQuantity = document.getElementById("totalQuantity");
+const dashboardTotal = document.getElementById("dashboardTotal");
 let editingItem = null;
 function updateTotal() {
     let total = 0;
@@ -15,6 +18,7 @@ function updateTotal() {
 
     items.forEach(function(item) {
         const text = item.textContent;
+
         const pricePart = text.split("₹")[1];
         const cost = parseFloat(pricePart);
 
@@ -23,9 +27,27 @@ function updateTotal() {
         }
     });
 
+    totalItems.textContent = items.length;
+
+    let quantityTotal = 0;
+
+    items.forEach(function(item) {
+        const text = item.textContent;
+
+        const quantityPart = text.split("Qty: ")[1].split(" | ")[0];
+        const quantityValue = parseFloat(quantityPart);
+
+        if (!isNaN(quantityValue)) {
+            quantityTotal += quantityValue;
+        }
+    });
+
+    totalQuantity.textContent = quantityTotal;
     totalAmount.textContent = total;
+    dashboardTotal.textContent = total;
+
 }
-addItemButton.addEventListener("click", function() {
+    addItemButton.addEventListener("click", function() {
 
     const name = itemName.value;
     const cat = category.value;
