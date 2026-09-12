@@ -153,7 +153,13 @@ function loadItems() {
 
 loadItems();
 clearAllButton.addEventListener("click", function() {
-    shoppingList.innerHTML = "";
-    localStorage.removeItem("groceryItems");
-    totalAmount.textContent = "0";
+
+    const confirmClear = confirm("Are you sure you want to clear all items?");
+
+    if (confirmClear) {
+        shoppingList.innerHTML = "";
+        localStorage.removeItem("groceryItems");
+        totalAmount.textContent = "0";
+    }
+
 });
