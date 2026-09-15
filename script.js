@@ -5,7 +5,9 @@ const quantity = document.getElementById("quantity");
 const price = document.getElementById("price");
 const shoppingList = document.getElementById("shoppingList");
 const clearAllButton = document.getElementById("clearAll");
+const purchaseStatus = document.getElementById("purchaseStatus");
 const searchInput = document.getElementById("searchInput");
+const categoryFilter = document.getElementById("categoryFilter");
 const totalAmount = document.getElementById("totalAmount");
 const totalItems = document.getElementById("totalItems");
 const totalQuantity = document.getElementById("totalQuantity");
@@ -71,6 +73,21 @@ function updateTotal() {
     } else {
 
         const item = document.createElement("p");
+        const statusButton = document.createElement("button");
+        statusButton.className = "status-button";
+        statusButton.textContent = "Purchased";
+
+        statusButton.addEventListener("click", function() {
+    if (statusButton.textContent === "Purchased") {
+        statusButton.textContent = "Pending";
+        statusButton.classList.add("pending");
+    } else {
+        statusButton.textContent = "Purchased";
+        statusButton.classList.remove("pending");
+    }
+
+    saveItems();
+});
 
         const itemText = document.createElement("span");
         itemText.className = "itemText";
@@ -100,6 +117,7 @@ function updateTotal() {
 });
 
         item.appendChild(itemText);
+        item.appendChild(statusButton);
         item.appendChild(editButton);
         item.appendChild(deleteButton);
 
@@ -113,24 +131,37 @@ function updateTotal() {
     quantity.value = "";
     price.value = "";
 });
-searchInput.addEventListener("input", function() {
+function filterItems() {
 
     const searchText = searchInput.value.toLowerCase();
-    const items = shoppingList.querySelectorAll("p");
+    const selectedCategory = categoryFilter.value;
 
+    const items = shoppingList.querySelectorAll("p");
     items.forEach(function(item) {
 
-        const itemText = item.querySelector(".itemText").textContent.toLowerCase();
+        const itemText = item.querySelector(".itemText").textContent;
 
-        if (itemText.includes(searchText)) {
+        const matchesSearch = itemText.toLowerCase().includes(searchText);
+
+        const parts = itemText.split(" | ");
+        const itemCategory = parts[1];
+
+        const matchesCategory =
+            selectedCategory === "all" ||
+            itemCategory.toLowerCase() === selectedCategory.toLowerCase();
+
+        if (matchesSearch && matchesCategory) {
             item.style.display = "block";
         } else {
             item.style.display = "none";
         }
 
     });
+}
 
-});
+searchInput.addEventListener("input", filterItems);
+
+categoryFilter.addEventListener("change", filterItems);
 function saveItems() {
     localStorage.setItem("groceryItems", shoppingList.innerHTML);
 }
@@ -144,8 +175,21 @@ function loadItems() {
 
         items.forEach(function(item) {
 
-            const editButton = item.querySelector("button:nth-of-type(1)");
-            const deleteButton = item.querySelector("button:nth-of-type(2)");
+            const statusButton = item.querySelector("button:nth-of-type(1)");
+            const editButton = item.querySelector("button:nth-of-type(2)");
+            const deleteButton = item.querySelector("button:nth-of-type(3)");
+            if (statusButton.textContent === "Pending") {
+            statusButton.classList.add("pending");
+}
+            statusButton.addEventListener("click", function() {
+    if (statusButton.textContent === "Purchased") {
+        statusButton.textContent = "Pending";
+    } else {
+        statusButton.textContent = "Purchased";
+    }
+
+    saveItems();
+});
 
             editButton.addEventListener("click", function() {
                 const text = item.querySelector(".itemText").textContent;
@@ -182,6 +226,9 @@ clearAllButton.addEventListener("click", function() {
         shoppingList.innerHTML = "";
         localStorage.removeItem("groceryItems");
         totalAmount.textContent = "0";
+        totalItems.textContent = "0";
+        totalQuantity.textContent = "0";
+        dashboardTotal.textContent = "0";
     }
 
 });

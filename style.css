@@ -123,3 +123,15 @@ button {
     font-weight: bold;
     margin: 0;
 }
+.status-button {
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 6px 12px;
+}
+.status-button {
+    background: #28a745;
+    color: white;
+}
+.status-button.pending {
+    background: #dc3545;
+}
