@@ -1,6 +1,7 @@
 🛒 Personal Grocery & Shopping Tracker
 
 A simple and user-friendly web application to manage grocery and shopping items.
+🌐 **Live Demo:** https://sivaachiver-arch.github.io/grocery-tracker/
 
 ✨ Features
 
