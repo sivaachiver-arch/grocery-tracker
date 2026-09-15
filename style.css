@@ -135,3 +135,46 @@ button {
 .status-button.pending {
     background: #dc3545;
 }
+/* Responsive Design */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .dashboard {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .summary-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input,
+    select,
+    button {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    #shoppingList p {
+        padding: 12px;
+        word-wrap: break-word;
+    }
+
+    .status-button,
+    #shoppingList button {
+        width: auto;
+        margin-right: 5px;
+    }
+}
